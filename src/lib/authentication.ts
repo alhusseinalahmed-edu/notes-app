@@ -55,14 +55,23 @@ export class AuthHandler implements Auth{
     }
 
     async login(form: FormData, cookies:Cookies): Promise<Result> {
+      
         const username = form.get("username")?.toString();
         const password = form.get("password")?.toString();
-        if(!password || !username)
+
+        if(!username)
         {
-            return {success:false, message:"Couldn't find the username!"}
+            return {success:false, message:"Error getting the username!"}
+
         }
+        if(!password)
+        {
+            return {success:false, message:"Error getting the password!"}
+            
+        }
+
         try {
-          const result = await database.user.findFirst({
+          const result = await database.user.findUnique({
             where: { username },
           });
         

@@ -34,15 +34,17 @@
 								class=" w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
 								type="text"
 								placeholder="username"
+								required
 							/>
 						</div>
 						<div class="space-y-2">
 							<label class="mb-5 text-sm font-medium text-gray-700 tracking-wide"> Password </label>
 							<input
 								class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400"
-								type="password"
+								type="text"
 								placeholder="password"
 								name="password"
+								required
 							/>
 						</div>
 						<div class="flex items-center justify-between">
@@ -71,7 +73,7 @@
 						</div>
 					</div>
 					{#if form?.message}
-						<p class="text-red-500">{form?.message}</p>
+						<p class="text-green-500">{form?.message}</p>
 					{/if}
 					<div class="pt-5 text-center text-gray-400 text-XL">
 						<span>

@@ -22,6 +22,7 @@
 			</div>
 		</div>
 		<div class="flex justify-center self-center z-10">
+			<form action="?/login" method="POST">
 			<div class="p-12 bg-white mx-auto rounded-2xl w-100">
 				<div class="mb-4">
 					<h3 class="font-semibold text-2xl text-gray-800">Sign in</h3>
@@ -32,16 +33,20 @@
 						<label class="text-sm font-medium text-gray-700 tracking-wide">Username</label>
 						<input
 							class=" w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400 bg-white"
-							type=""
+							type="text"
 							placeholder="username"
+							name="username"
+							required
 						/>
 					</div>
 					<div class="space-y-2">
 						<label class="mb-5 text-sm font-medium text-gray-700 tracking-wide"> Password </label>
 						<input
 							class="w-full content-center text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-green-400 bg-white"
-							type=""
+							type="text"
 							placeholder="password"
+							name="password"
+							required
 						/>
 					</div>
 					<div class="flex items-center justify-between">
@@ -85,6 +90,7 @@
 					>
 				</div>
 			</div>
+		</form>
 		</div>
 	</div>
 </div>
