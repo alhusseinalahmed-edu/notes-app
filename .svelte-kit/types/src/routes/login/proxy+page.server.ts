@@ -4,9 +4,20 @@ import { auth } from '$lib/authentication';
 import type { Actions } from "./$types";
 import { fail } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
+import { database } from '$lib/database';
 
 
-export const load = (async () => {
+export const load = (async ({cookies}) => {
+
+    const session = cookies.get("session");
+    if(!session)return;
+    const user = await database.user.findUnique({where:{session}});
+
+    if(user)
+    {
+      throw redirect(303, "/")
+    }
+
     return {};
 }) satisfies PageServerLoad;
 
@@ -19,7 +30,7 @@ export const actions = {
       
       // If it fails
       if (!result.success) {
-        return fail(400, {message:result.message});
+        return fail(400, {error:result.message});
       }
       if(result.session)
       {
