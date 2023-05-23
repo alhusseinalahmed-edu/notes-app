@@ -13,6 +13,16 @@ export const load = (async ({cookies}) => {
     if(!session){
         throw redirect(303, "/login");
     }
+    const user = await database.user.findUnique({where:{session}})
+    const notes = await database.note.findMany({where:{authorId: user?.id}})
+
+    if(notes)
+    {
+      return {
+        notes,
+      }
+    }
+
 }) satisfies PageServerLoad;
 
 
@@ -26,6 +36,37 @@ export const actions = {
       
       throw redirect(303, "/login")
     },
+    add: async ({ request, cookies }: import('./$types').RequestEvent) => {
+      const form = await request.formData();
+      const session = cookies.get("session");
+      const content = form.get("content")?.toString();
+      const title = form.get("title")?.toString();
+
+      if(!session)
+      {
+        return fail(400, {error: "Session expired!"})
+      }      
+      if(!title)
+      {
+        return fail(400, {error: "Title missing!"})
+      }      
+      if(!content)
+      {
+        return fail(400, {error: "Note text missing!"})
+      }      
+
+
+      const add = await database.user.update({where:{session}, data:{notes: {create:{title, content}}}});
+
+      if(!add)
+      {
+        return fail(400, {error: "failed to add the note!"})
+      }
+
+      
+
+
+    }
   };
 
 ;null as any as Actions;
