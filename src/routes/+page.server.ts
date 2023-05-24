@@ -60,11 +60,26 @@ export const actions: Actions = {
       if(!add)
       {
         return fail(400, {error: "failed to add the note!"})
-      }
+      }   
+    },
+    delete: async ({ request, cookies }) => {
+        const form = await request.formData();
+        const noteString = form.get("noteId")?.toString();
+        if(!noteString)return;
+        const note_Id = parseInt(noteString);
 
-      
+        if(!note_Id)
+        {
+          return fail(400, {error: "Couldn't find the note!"})
+        }
 
-
+        const result = await database.note.delete({where:{id: note_Id}})
+        
+        if(!result)
+        {
+          return fail(400, {error: "Couldn't delete the note!"})
+        }
     }
+
   };
 

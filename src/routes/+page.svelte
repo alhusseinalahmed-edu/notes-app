@@ -1,18 +1,19 @@
 <script lang="ts">
+	import { noop } from "svelte/internal";
 import type { ActionData, PageServerData, PageServerLoad } from "./$types";
 
 export let form:ActionData;
 
-export let data: PageServerLoad;
+export let data: PageServerData;
 
 </script>
 
 
 <div class="min-h-screen bg-gray-900 flex flex-col items-center">
-    <div class="max-w-xl w-full mx-4 mt-8">
+    <div class="max-w-xl w-3/5 mx-4 mt-4">
       <div class="bg-gray-700 rounded-lg shadow-lg p-4 mb-4">
         <h3 class="text-center text-xl font-bold mb-2 text-white">Write a New Note</h3>
-        <form action="?/add" method="POST" class="flex flex-col items-center">
+        <form action="?/add" method="POST" class="flex flex-col items-left">
             <div class="mb-4">
             <input
                 class="bg-gray-800 w-full h-10 p-2 border border-gray-300 rounded text-white"
@@ -29,11 +30,9 @@ export let data: PageServerLoad;
                 name="content"
                 required
             ></textarea>
-
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded " type="submit">
                 Add note
             </button>
-
             {#if form?.error}
             <p class="text-red-500 mt-2 text-center">{ form.error}</p>
             {/if}
@@ -48,12 +47,21 @@ export let data: PageServerLoad;
       <div class="bg-gray-700 rounded-lg shadow-lg p-4 flex flex-wrap">
         <!-- Previous notes container -->
         <div class="flex space-x-4">
-            {#each data?.notes? as note}
+          {#if data?.notes}
+            {#each data.notes as note}
             <div class="bg-gray-800 p-4 rounded-lg">
-                <h4 class="text-lg font-bold text-white">Note Title</h4>
-                <p class="text-white">Note Text</p>
+              <form action="?/delete" method="POST">
+                <h4 class="text-lg font-bold text-white">{note.title}</h4>
+                <p class="text-white">{note.content}</p>
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="submit">
+                  Delete note
+                </button>
+                <textarea style="display:none"name ="noteId">{note.id}</textarea>
+              </form>
+
             </div>
            {/each}
+          {/if}
           <!-- Repeat the above <div> for each note -->
         </div>
       </div>
