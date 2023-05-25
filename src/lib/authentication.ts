@@ -1,6 +1,6 @@
 import {database} from "$lib/database"
 import type { Cookies } from "@sveltejs/kit";
-import crypto from "crypto"
+import * as crypto from "crypto";
 
 export type Result = {
     success:boolean;
@@ -29,6 +29,8 @@ export class AuthHandler implements Auth{
             return {success:false, message:"Password is too weak!"}
           }
           if (!users) {
+
+            
             const session = crypto.randomUUID();
     
             // Creating a unique salt for a particular user
