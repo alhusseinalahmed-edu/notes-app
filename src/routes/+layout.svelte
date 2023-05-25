@@ -9,7 +9,6 @@
      <ul class="flex items-center justify-center h-16">
        {#if data?.user}
          <li class="py-4 px-6"><a href="/" class="text-white text-lg">My Notes</a></li>
-         <li class="py-4 px-6"><a href="/settings" class="text-white text-lg">Settings</a></li>
          <form action="?/logout" method="POST">
            <li class="py-4 px-6">
              <label for="signOutButton" class="text-white text-lg cursor-pointer">Sign Out</label>

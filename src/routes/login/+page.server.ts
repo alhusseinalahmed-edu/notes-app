@@ -38,7 +38,7 @@ export const actions: Actions = {
             httpOnly: true, // optional for now
             sameSite: "strict", // optional for now
             secure: process.env.NODE_ENV === "production", // optional for now
-            maxAge: 60, //
+            maxAge: 60 * 60, //
           });
         throw redirect(302, "/");
       }  
