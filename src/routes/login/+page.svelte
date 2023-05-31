@@ -4,8 +4,8 @@
 	export let form: ActionData;
 </script>
 
-<div class="flex items-center justify-center h-screen bg-gray-900">
-	<div class="w-1/4 bg-gray-800 rounded-lg shadow-lg p-14">
+<div class="flex items-center justify-center h-screen bg-gray-800">
+	<div class="w-1/4 bg-gray-900 rounded-lg shadow-lg p-14">
 	  <h2 class="text-center text-4xl font-bold text-white mb-6">Sign In</h2>
 	  <form action="?/login" method="POST">
 		<div class="mb-8">

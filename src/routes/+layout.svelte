@@ -4,7 +4,7 @@
 
 </script>
 
-<nav class="bg-gray-800">
+<nav class="bg-gray-900">
    <div class="container mx-auto px-4">
      <ul class="flex items-center justify-center h-16">
        {#if data?.user}

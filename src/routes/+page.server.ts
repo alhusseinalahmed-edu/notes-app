@@ -53,14 +53,39 @@ export const actions: Actions = {
       {
         return fail(400, {error: "Note text missing!"})
       }      
-
-
       const add = await database.user.update({where:{session}, data:{notes: {create:{title, content}}}});
-
       if(!add)
       {
         return fail(400, {error: "failed to add the note!"})
       }   
+
+    },
+    update: async ({ request, cookies }) => {
+      const form = await request.formData();
+      const content = form.get("content")?.toString();
+      const title = form.get("title")?.toString();
+      const noteString = form.get("noteId")?.toString();
+      if(!noteString)return;
+      const note_Id = parseInt(noteString);
+
+      if(!note_Id)
+      {
+        return fail(400, {error: "Couldn't find the note!"})
+      }
+      if(!title)
+      {
+        return fail(400, {error: "Title missing!"})
+      }      
+      if(!content)
+      {
+        return fail(400, {error: "Note text missing!"})
+      }      
+      const update = await database.note.update({where:{id:note_Id}, data:{title,content}});
+      if(!update)
+      {
+        return fail(400, {error: "failed to update the note!"})
+      }   
+      
     },
     delete: async ({ request, cookies }) => {
         const form = await request.formData();
